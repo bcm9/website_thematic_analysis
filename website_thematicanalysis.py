@@ -112,20 +112,20 @@ plt.show()
 # Sentiment analysis
 from textblob import TextBlob
 
-# Define a function to calculate the sentiment polarity of a given text
+# Define function to calculate the sentiment polarity of text
 def get_sentiment(text):
     blob = TextBlob(text)
     sentiment = blob.sentiment.polarity
     return sentiment
 
-# Apply the sentiment analysis function to the "Response Processed" column
+# Apply sentiment analysis function to the processed column
 df["Sentiment"] = df["Feedback Response Processed"].apply(get_sentiment)
 
-# Count the number of positive and negative responses
+# Count number of positive and negative responses
 num_pos = (df["Sentiment"] > 0).sum()
 num_neg = (df["Sentiment"] < 0).sum()
 
-# Print the results
+# Print results
 print(f"Positive responses: {num_pos}")
 print(f"Negative responses: {num_neg}")
 
