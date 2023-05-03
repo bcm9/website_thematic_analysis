@@ -93,3 +93,46 @@ plt.xlabel('Rating', fontweight='bold')
 plt.ylabel('Frequency', fontweight='bold')
 plt.grid(axis='y', alpha=0.75)
 plt.show()
+
+# Word cloud plot
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
+# Concatenate all the processed responses into a single string
+text = " ".join(df["Feedback Response Processed"].values)
+# Create a word cloud object
+wordcloud = WordCloud(width=800, height=400, background_color="white", max_words=100).generate(text)
+# Display word cloud
+plt.figure(figsize=(10, 8))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis("off")
+plt.show()
+
+###############################################################################################################
+# Sentiment analysis
+from textblob import TextBlob
+
+# Define a function to calculate the sentiment polarity of a given text
+def get_sentiment(text):
+    blob = TextBlob(text)
+    sentiment = blob.sentiment.polarity
+    return sentiment
+
+# Apply the sentiment analysis function to the "Response Processed" column
+df["Sentiment"] = df["Feedback Response Processed"].apply(get_sentiment)
+
+# Count the number of positive and negative responses
+num_pos = (df["Sentiment"] > 0).sum()
+num_neg = (df["Sentiment"] < 0).sum()
+
+# Print the results
+print(f"Positive responses: {num_pos}")
+print(f"Negative responses: {num_neg}")
+
+# Plot bar chart
+fig, ax = plt.subplots(figsize=(8, 6))
+ax.bar(["Positive", "Negative"], [num_pos, num_neg], color=["green", "red"])
+ax.set_xlabel("Sentiment", fontsize=14, fontweight="bold")
+ax.set_ylabel("Number of Responses", fontsize=14, fontweight="bold")
+ax.set_title("Sentiment Analysis Results", fontsize=16, fontweight="bold")
+plt.show()
