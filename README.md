@@ -5,6 +5,7 @@
   - The NLTK Python library was used for natural language processing, and the Pandas library was used for data manipulation.
   - The feedback was pre-processed using the WordNetLemmatizer to reduce words to their lemma, and a custom set of stopwords was used to filter out irrelevant words.
   - This work also includes a sentiment analysis of the free text, classifing the sentiment polarity of a text to positive or negative.
+  - A binomial test is used to check whether the number of positive sentiments is significantly different from 50%.
 
 ![](figure1.png)
 
