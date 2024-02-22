@@ -102,6 +102,8 @@ plt.hist(df['Rating'], bins=np.arange(0.5, 6.5, 1), color='skyblue', edgecolor='
 plt.xlabel('Rating', fontweight='bold', fontsize=fs)
 plt.ylabel('Frequency', fontweight='bold', fontsize=fs)
 plt.title("Distribution of Ratings", fontweight='bold', fontsize=fs+2)
+plt.xticks(fontsize=xtfs)
+plt.yticks(fontsize=xtfs)
 plt.grid(axis='y', alpha=0.75)
 plt.show()
 
