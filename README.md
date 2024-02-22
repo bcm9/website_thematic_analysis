@@ -11,7 +11,6 @@
 
 ![](figure2.png)
 
-![](figure3.png)
-
 ![](figure4.png)
 
+![](figure3.png)
