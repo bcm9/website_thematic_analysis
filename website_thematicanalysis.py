@@ -104,7 +104,7 @@ plt.xlabel('Rating', fontweight='bold', fontsize=fs)
 plt.ylabel('Frequency', fontweight='bold', fontsize=fs)
 mean_rating = np.mean(df['Rating'])
 std_rating = np.std(df['Rating'])
-plt.title(f"Distribution of Ratings; M = {mean_rating:.1f}; SD = {std_rating:.1f}", fontweight='bold', fontsize=fs+2)  # Format mean to 2 decimal places
+plt.title(f"Distribution of Ratings (M = {mean_rating:.1f}; SD = {std_rating:.1f})", fontweight='bold', fontsize=fs+2)  # Format mean to 2 decimal places
 plt.xticks(fontsize=xtfs)
 plt.yticks(fontsize=xtfs)
 plt.grid(axis='y', alpha=0.75)
