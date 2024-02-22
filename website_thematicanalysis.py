@@ -80,12 +80,12 @@ for code, keywords in codes.items():
     
 ###############################################################################################################
 # Plotting results
-fs=16
-xtfs=14
+fs=20
+xtfs=fs-2
 plt.rcParams['font.family'] = 'Calibri'
 
 # Bar plot of code frequency
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(7, 6))
 code_counts = df.iloc[:, 3:].sum()
 plt.bar(code_counts.index, code_counts.values, color='skyblue', edgecolor='black')
 plt.xlabel("Themes", fontweight='bold', fontsize=fs)
@@ -145,10 +145,10 @@ print(f"Negative responses: {num_neg}")
 
 # Plot bar chart
 fig, ax = plt.subplots(figsize=(7, 6))
-ax.bar(["Positive", "Negative"], [num_pos, num_neg], color=["#4CAF50", "#F44336"])
+ax.bar(["Positive", "Negative"], [num_pos, num_neg], color=["#00A36C", "#FA5F55"])
 ax.set_xticklabels(["Positive", "Negative"], fontsize=fs)
 ax.set_xlabel("Sentiment", fontsize=fs, fontweight="bold")
 ax.set_ylabel("Number of Responses", fontsize=fs, fontweight="bold")
 ax.set_title("Sentiment Analysis", fontsize=fs+2, fontweight="bold")
-plt.grid(axis='y', alpha=0.75)
+plt.grid(axis='y', alpha=0.5)
 plt.show()
