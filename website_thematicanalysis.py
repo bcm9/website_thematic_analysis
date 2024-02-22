@@ -143,12 +143,19 @@ num_neg = (df["Sentiment"] < 0).sum()
 print(f"Positive responses: {num_pos}")
 print(f"Negative responses: {num_neg}")
 
+# Perform binomial test
+from scipy.stats import binom_test
+# Null hypothesis: p = 0.5 (the probability of success in a single trial)
+p_value = binom_test(num_pos, n=num_pos+num_neg, p=0.5)
+
 # Plot bar chart
 fig, ax = plt.subplots(figsize=(7, 6))
 ax.bar(["Positive", "Negative"], [num_pos, num_neg], color=["#00A36C", "#FA5F55"])
 ax.set_xticklabels(["Positive", "Negative"], fontsize=fs)
 ax.set_xlabel("Sentiment", fontsize=fs, fontweight="bold")
 ax.set_ylabel("Number of Responses", fontsize=fs, fontweight="bold")
-ax.set_title("Sentiment Analysis", fontsize=fs+2, fontweight="bold")
+ax.set_title(f"Sentiment Analysis (p = {p_value:.4f})", fontsize=fs+2, fontweight="bold")
+plt.xticks(fontsize=xtfs)
+plt.yticks(fontsize=xtfs)
 plt.grid(axis='y', alpha=0.5)
 plt.show()
