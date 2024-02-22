@@ -12,9 +12,10 @@ import nltk as nltk # for NLP tasks
 import pandas as pd
 import matplotlib.pyplot as plt
 import re
+import numpy as np
 
 # Import questionnaire results
-df = pd.read_excel('C:\\Users\\bcm9\\Documents\\Py_code\\ThematicAnalysis\\website_questionnaire.xlsx')
+df = pd.read_excel('C:\\Users\\bc22\\OneDrive\\Documents\\code\\website_thematic\\website_questionnaire.xlsx')
 
 ###############################################################################################################
 # Preprocess the feedback with WordNetLemmatizer
@@ -78,19 +79,26 @@ for code, keywords in codes.items():
     
 ###############################################################################################################
 # Plotting results
+fs=14
+xtfs=12
 # Bar plot of code frequency
+plt.figure(figsize=(8, 6))
 code_counts = df.iloc[:, 3:].sum()
-plt.bar(code_counts.index, code_counts.values)
-plt.xlabel("Code", fontweight='bold')
-plt.ylabel("Frequency", fontweight='bold')
-plt.xticks(rotation=45)
+plt.bar(code_counts.index, code_counts.values, color='skyblue', edgecolor='black')
+plt.xlabel("Themes", fontweight='bold', fontsize=fs)
+plt.ylabel("Frequency", fontweight='bold', fontsize=fs)
+plt.xticks(rotation=45, fontsize=xtfs)
+plt.yticks(fontsize=xtfs)
 plt.grid(axis='y', alpha=0.75)
+plt.tight_layout()
 plt.show()
 
 # Plot histogram of ratings
-plt.hist(df['Rating'], bins=[1, 2, 3, 4, 5, 6], color='steelblue')
-plt.xlabel('Rating', fontweight='bold')
-plt.ylabel('Frequency', fontweight='bold')
+plt.figure(figsize=(8, 6))
+plt.hist(df['Rating'], bins=np.arange(0.5, 6.5, 1), color='skyblue', edgecolor='black')
+plt.xlabel('Rating', fontweight='bold', fontsize=fs)
+plt.ylabel('Frequency', fontweight='bold', fontsize=fs)
+plt.title("Distribution of Ratings", fontweight='bold', fontsize=fs+2)
 plt.grid(axis='y', alpha=0.75)
 plt.show()
 
@@ -130,10 +138,11 @@ print(f"Positive responses: {num_pos}")
 print(f"Negative responses: {num_neg}")
 
 # Plot bar chart
-fig, ax = plt.subplots(figsize=(8, 6))
-ax.bar(["Positive", "Negative"], [num_pos, num_neg], color=["green", "red"])
-ax.set_xlabel("Sentiment", fontsize=14, fontweight="bold")
-ax.set_ylabel("Number of Responses", fontsize=14, fontweight="bold")
-ax.set_title("Sentiment Analysis Results", fontsize=16, fontweight="bold")
+fig, ax = plt.subplots(figsize=(7, 6))
+ax.bar(["Positive", "Negative"], [num_pos, num_neg], color=["#4CAF50", "#F44336"])
+ax.set_xticklabels(["Positive", "Negative"], fontsize=fs)
+ax.set_xlabel("Sentiment", fontsize=fs, fontweight="bold")
+ax.set_ylabel("Number of Responses", fontsize=fs, fontweight="bold")
+ax.set_title("Sentiment Analysis", fontsize=fs+2, fontweight="bold")
 plt.grid(axis='y', alpha=0.75)
 plt.show()
