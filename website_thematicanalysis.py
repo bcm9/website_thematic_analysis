@@ -51,7 +51,8 @@ df["Feedback Response Processed"] = df["Feedback Response"].apply(preprocess_tex
 
 ###############################################################################################################
 # Create initial codes using regexps
-# Codes selected based on the research question: generate list of codes that capture concepts and themes. Codes should be grounded in the data and reflect experiences, perspectives, language. 
+# Themes and codes human led, selected based on the research question: generate list of codes that capture concepts and themes. 
+# Codes should be grounded in the data and reflect experiences, perspectives, language. 
 # Process should be systematic and transparent: ensure codes are reliable, valid, and consistent
 codes = {"Design": ["design", "layout", "color scheme"],
          "Performance": ["slow", "crash", "load"],
@@ -79,8 +80,10 @@ for code, keywords in codes.items():
     
 ###############################################################################################################
 # Plotting results
-fs=14
-xtfs=12
+fs=16
+xtfs=14
+plt.rcParams['font.family'] = 'Calibri'
+
 # Bar plot of code frequency
 plt.figure(figsize=(8, 6))
 code_counts = df.iloc[:, 3:].sum()
