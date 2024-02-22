@@ -87,7 +87,7 @@ plt.rcParams['font.family'] = 'Calibri'
 # Bar plot of code frequency
 plt.figure(figsize=(7, 6))
 code_counts = df.iloc[:, 3:].sum()
-plt.bar(code_counts.index, code_counts.values, color='skyblue', edgecolor='black')
+plt.bar(code_counts.index, code_counts.values, color='skyblue', edgecolor='black', alpha=0.8)
 plt.xlabel("Themes", fontweight='bold', fontsize=fs)
 plt.ylabel("Frequency", fontweight='bold', fontsize=fs)
 plt.title("Distribution of Themes", fontweight='bold', fontsize=fs+2)
@@ -99,7 +99,7 @@ plt.show()
 
 # Plot histogram of ratings
 plt.figure(figsize=(8, 6))
-plt.hist(df['Rating'], bins=np.arange(0.5, 6.5, 1), color='skyblue', edgecolor='black')
+plt.hist(df['Rating'], bins=np.arange(0.5, 6.5, 1), color='skyblue', edgecolor='black', alpha=0.8)
 plt.xlabel('Rating', fontweight='bold', fontsize=fs)
 plt.ylabel('Frequency', fontweight='bold', fontsize=fs)
 plt.title("Distribution of Ratings", fontweight='bold', fontsize=fs+2)
@@ -150,7 +150,7 @@ p_value = binom_test(num_pos, n=num_pos+num_neg, p=0.5)
 
 # Plot bar chart
 fig, ax = plt.subplots(figsize=(7, 6))
-ax.bar(["Positive", "Negative"], [num_pos, num_neg], color=["#00A36C", "#FA5F55"])
+ax.bar(["Positive", "Negative"], [num_pos, num_neg], color=["#00A36C", "#FA5F55"], alpha=0.9)
 ax.set_xticklabels(["Positive", "Negative"], fontsize=fs)
 ax.set_xlabel("Sentiment", fontsize=fs, fontweight="bold")
 ax.set_ylabel("Number of Responses", fontsize=fs, fontweight="bold")
