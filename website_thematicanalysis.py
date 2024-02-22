@@ -143,7 +143,7 @@ num_neg = (df["Sentiment"] < 0).sum()
 print(f"Positive responses: {num_pos}")
 print(f"Negative responses: {num_neg}")
 
-# Perform binomial test
+# Binomial test: whether the proportion of positive sentiments is significantly different from 50%
 from scipy.stats import binom_test
 # Null hypothesis: p = 0.5 (the probability of success in a single trial)
 p_value = binom_test(num_pos, n=num_pos+num_neg, p=0.5)
