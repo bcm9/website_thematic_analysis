@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 
-Analysis of website feedback (questionnaire with free text and ratings)
+Qualitative, NLP-based analysis of website feedback (questionnaire with free text and ratings)
 
-Thematic analysis aims to identify the underlying patterns and themes in qualitative data and draw meaningful conclusions
 
 """
 ###############################################################################################################
@@ -56,7 +55,10 @@ def preprocess_text(text):
 # Apply to feedback col
 df["Feedback Response Processed"] = df["Feedback Response"].apply(preprocess_text)
 
-###############################################################################################################
+#############################################################################################################################
+# Thematic analysis
+# Aims to identify the underlying patterns and themes in qualitative data and draw meaningful conclusions
+#############################################################################################################################
 # Create initial codes using regexps
 # Themes and codes human led, selected based on the research question: generate list of codes that capture concepts and themes. 
 # Codes should be grounded in the data and reflect experiences, perspectives, language. 
@@ -137,7 +139,7 @@ plt.show()
 
 ###############################################################################################################
 # Latent Dirichlet Allocation (LDA) 
-# probabilistic model to discover abstract topics within a collection of documents
+# Probabilistic model to discover abstract topics within a collection of documents
 ###############################################################################################################
 # Function to split the preprocessed text into tokens
 def split_into_tokens(text):
