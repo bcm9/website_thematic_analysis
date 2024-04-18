@@ -12,7 +12,11 @@ import nltk as nltk # for NLP tasks
 import pandas as pd
 import matplotlib.pyplot as plt
 import re
+import string
 import numpy as np
+from gensim import corpora, models
+from nltk.corpus import stopwords
+from nltk.tokenize import RegexpTokenizer
 
 # Import questionnaire results
 df = pd.read_excel('C:\\Users\\bc22\\OneDrive\\Documents\\code\\website_thematic\\website_questionnaire.xlsx')
@@ -29,7 +33,10 @@ df = pd.read_excel('C:\\Users\\bc22\\OneDrive\\Documents\\code\\website_thematic
 
 # Set stop words to filter out
 #stopwords = set(nltk.corpus.stopwords.words("english"))
-custom_stopwords = set(["the", "and", "a", "an", "to", "in", "of", "for"])
+custom_stopwords = set(["the", "and", "a", "an", "to", "in", "of", "for", "is", "i", "it"])
+
+# Update your list of stopwords to include NLTK's stopwords, your custom stopwords, and punctuation
+all_stopwords = set(stopwords.words('english')).union(custom_stopwords, set(string.punctuation))
 
 # Import WordNetLemmatizer from the nltk.stem module
 from nltk.stem import WordNetLemmatizer
@@ -42,7 +49,7 @@ def preprocess_text(text):
     # Tokenise text
     tokens = nltk.word_tokenize(text)
     # Remove custom stop words, lemmatize remaining words
-    words = [lemmatizer.lemmatize(word.lower()) for word in tokens if word.lower() not in custom_stopwords]
+    words = [lemmatizer.lemmatize(word.lower()) for word in tokens if word.lower() not in all_stopwords]
     # Join words back into a single string
     return " ".join(words)
 
@@ -83,6 +90,7 @@ for code, keywords in codes.items():
 fs=20
 xtfs=fs-2
 plt.rcParams['font.family'] = 'Calibri'
+# plt.rcParams['font.family'] = 'Circular Book'
 
 # Bar plot of code frequency
 plt.figure(figsize=(7, 6))
@@ -103,8 +111,11 @@ plt.hist(df['Rating'], bins=np.arange(0.5, 6.5, 1), color='skyblue', edgecolor='
 plt.xlabel('Rating', fontweight='bold', fontsize=fs)
 plt.ylabel('Frequency', fontweight='bold', fontsize=fs)
 mean_rating = np.mean(df['Rating'])
+median_rating = np.median(df['Rating'])
 std_rating = np.std(df['Rating'])
-plt.title(f"Distribution of Ratings (M = {mean_rating:.1f}; SD = {std_rating:.1f})", fontweight='bold', fontsize=fs+2)  # Format mean to 2 decimal places
+q75, q25 = np.percentile(df['Rating'], [75 ,25])
+iqr_rating = q75 - q25
+plt.title(f"Distribution of Ratings (Med = {median_rating:.1f}; IQR = {iqr_rating:.1f})", fontweight='bold', fontsize=fs+2)  # Format mean to 2 decimal places
 plt.xticks(fontsize=xtfs)
 plt.yticks(fontsize=xtfs)
 plt.grid(axis='y', alpha=0.75)
@@ -125,7 +136,43 @@ plt.axis("off")
 plt.show()
 
 ###############################################################################################################
+# Latent Dirichlet Allocation (LDA) 
+# probabilistic model to discover abstract topics within a collection of documents
+###############################################################################################################
+# Function to split the preprocessed text into tokens
+def split_into_tokens(text):
+    return text.split()
+
+# Apply the function to the 'Feedback Response Processed' column
+df['Tokens'] = df['Feedback Response Processed'].apply(split_into_tokens)
+
+# Now we can create the dictionary and corpus needed for LDA
+dictionary = corpora.Dictionary(df['Tokens'])
+corpus = [dictionary.doc2bow(text) for text in df['Tokens']]
+
+# Apply LDA
+ldamodel = models.LdaModel(corpus, num_topics=5, id2word=dictionary, passes=15)
+
+# Print topics
+topics = ldamodel.print_topics(num_words=4)
+for topic in topics:
+    print(topic)
+
+# Adding the dominant topic for each document to the dataframe
+dominant_topics = []
+for text_corpus in corpus:
+    topics_in_text = ldamodel[text_corpus]
+    dominant_topic = sorted(topics_in_text, key=lambda x: x[1], reverse=True)[0][0]
+    dominant_topics.append(dominant_topic)
+
+# Output of n topics extracted from a dataset
+# Each topic described by a set of words with corresponding probabilities
+# Numbers indicate likelihood that word is associated with topic, suggesting how representative it is
+df['Dominant_Topic'] = dominant_topics
+
+###############################################################################################################
 # Sentiment analysis
+###############################################################################################################
 from textblob import TextBlob
 
 # Define function to calculate the sentiment polarity of text
