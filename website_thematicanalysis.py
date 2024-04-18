@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 
-Qualitative, NLP-based analysis of website feedback (questionnaire with free text and ratings)
+NLP-based analysis of website feedback (questionnaire with free text and ratings)
 
 
 """
@@ -139,7 +139,7 @@ plt.show()
 
 ###############################################################################################################
 # Latent Dirichlet Allocation (LDA) 
-# Probabilistic model to discover abstract topics within a collection of documents
+# Probabilistic model to identify latent topics within a collection of documents
 ###############################################################################################################
 # Function to split the preprocessed text into tokens
 def split_into_tokens(text):
