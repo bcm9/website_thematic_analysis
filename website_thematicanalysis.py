@@ -145,10 +145,32 @@ plt.show()
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
+# Create a circular mask
+x, y = np.ogrid[:800, :800]
+mask = (x - 400) ** 2 + (y - 400) ** 2 > 390 ** 2  # 390 is the radius, adjust as needed
+mask = 255 * mask.astype(int)  # 255 makes the mask white, which wordcloud recognises
+font_path = 'C:/Windows/Fonts/calibri.ttf'  # Adjust the path based on where Calibri is located on your system
+
+
 # Concatenate all the processed responses into a single string
 text = " ".join(df["Feedback Response Processed"].values)
 # Create a word cloud object
-wordcloud = WordCloud(width=800, height=400, background_color="white", max_words=100).generate(text)
+# wordcloud = WordCloud(width=800, height=400, background_color="white", max_words=100).generate(text)
+wordcloud = WordCloud(
+    width=800, 
+    height=800, 
+    background_color='white', 
+    colormap='viridis',  # Colour map for aesthetic appeal
+    max_words=100,       # Adjust max words to control density
+    min_font_size=20,    # Minimum font size for smaller words
+    max_font_size=150,   # Maximum font size for larger words
+    random_state=42,     # Random state for reproducibility
+    collocations=False,  # Avoid bigram grouping
+    contour_width=.4,     # Adds a contour for emphasis
+    contour_color='white',  # Contour colour for better visibility
+    mask=mask, # Apply the circular mask
+    font_path=font_path,  # Set the Calibri font
+).generate(text)
 # Display word cloud
 plt.figure(figsize=(10, 8))
 plt.imshow(wordcloud, interpolation='bilinear')
