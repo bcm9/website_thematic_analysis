@@ -7,10 +7,10 @@
   - This work also includes a sentiment analysis of the free text, classifing the sentiment polarity of a text to positive or negative.
   - A binomial test is used to check whether the number of positive sentiments is significantly different from 50%.
 
-![](Figures/figure1.png)
 
-![](Figures/figure2.png)
-
-![](Figures/figure4.png)
-
-![](Figures/figure3.png)
+<div style="display: flex; justify-content: space-between;">
+  <img src="./figure1.png" alt="themes" width="350"/>
+  <img src="./figure2.png" alt="ratings" width="420"/>
+  <img src="./figure4.png" alt="sentiment" width="420"/>
+  <img src="./figure3.png" alt="word cloud" width="420"/>
+</div>
