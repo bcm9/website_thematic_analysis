@@ -97,14 +97,24 @@ plt.rcParams['font.family'] = 'Calibri'
 # Bar plot of code frequency
 plt.figure(figsize=(7, 6))
 code_counts = df.iloc[:, 3:].sum()
-plt.bar(code_counts.index, code_counts.values, color='skyblue', edgecolor='black', alpha=0.8)
+plt.bar(code_counts.index, code_counts.values, color='skyblue', edgecolor='white', alpha=0.8)
 plt.xlabel("Themes", fontweight='bold', fontsize=fs)
 plt.ylabel("Frequency", fontweight='bold', fontsize=fs)
 plt.title("Distribution of Themes", fontweight='bold', fontsize=fs+2)
 plt.xticks(rotation=45, fontsize=xtfs)
 plt.yticks(fontsize=xtfs)
-plt.grid(axis='y', alpha=0.75)
+plt.grid(axis='y', alpha=0.35)
 plt.tight_layout()
+# Remove axes borders
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+plt.gca().spines['left'].set_visible(False)
+plt.gca().spines['bottom'].set_visible(False)
+# Remove x and y tick lines
+plt.tick_params(axis='both', which='both', length=0)
+# Save and show the histogram
+folder = 'C:/Users/bc22/OneDrive/Documents/code/website_thematic/'
+plt.savefig(folder+'figure1.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 # Plot histogram of ratings
@@ -128,6 +138,7 @@ plt.gca().spines['left'].set_visible(False)
 plt.gca().spines['bottom'].set_visible(False)
 # Remove x and y tick lines
 plt.tick_params(axis='both', which='both', length=0)
+plt.savefig(folder+'figure2.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 # Word cloud plot
@@ -142,7 +153,7 @@ wordcloud = WordCloud(width=800, height=400, background_color="white", max_words
 plt.figure(figsize=(10, 8))
 plt.imshow(wordcloud, interpolation='bilinear')
 plt.axis("off")
-
+plt.savefig(folder+'figure3.png', dpi=300, bbox_inches='tight')
 plt.show()
 
 ###############################################################################################################
@@ -224,4 +235,5 @@ plt.gca().spines['left'].set_visible(False)
 plt.gca().spines['bottom'].set_visible(False)
 # Remove x and y tick lines
 plt.tick_params(axis='both', which='both', length=0)
+plt.savefig(folder+'figure4.png', dpi=300, bbox_inches='tight')
 plt.show()
