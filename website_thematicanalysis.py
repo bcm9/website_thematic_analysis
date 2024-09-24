@@ -109,7 +109,7 @@ plt.show()
 
 # Plot histogram of ratings
 plt.figure(figsize=(8, 6))
-plt.hist(df['Rating'], bins=np.arange(0.5, 6.5, 1), color='skyblue', edgecolor='black', alpha=0.8)
+plt.hist(df['Rating'], bins=np.arange(0.5, 6.5, 1), color='skyblue', edgecolor='white', alpha=0.8)
 plt.xlabel('Rating', fontweight='bold', fontsize=fs)
 plt.ylabel('Frequency', fontweight='bold', fontsize=fs)
 mean_rating = np.mean(df['Rating'])
@@ -120,7 +120,14 @@ iqr_rating = q75 - q25
 plt.title(f"Distribution of Ratings (Med = {median_rating:.1f}; IQR = {iqr_rating:.1f})", fontweight='bold', fontsize=fs+2)  # Format mean to 2 decimal places
 plt.xticks(fontsize=xtfs)
 plt.yticks(fontsize=xtfs)
-plt.grid(axis='y', alpha=0.75)
+plt.grid(axis='y', alpha=0.25)
+# Remove axes borders
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+plt.gca().spines['left'].set_visible(False)
+plt.gca().spines['bottom'].set_visible(False)
+# Remove x and y tick lines
+plt.tick_params(axis='both', which='both', length=0)
 plt.show()
 
 # Word cloud plot
@@ -135,6 +142,7 @@ wordcloud = WordCloud(width=800, height=400, background_color="white", max_words
 plt.figure(figsize=(10, 8))
 plt.imshow(wordcloud, interpolation='bilinear')
 plt.axis("off")
+
 plt.show()
 
 ###############################################################################################################
@@ -201,12 +209,19 @@ p_value = binom_test(num_pos, n=num_pos+num_neg, p=0.5)
 
 # Plot bar chart
 fig, ax = plt.subplots(figsize=(7, 6))
-ax.bar(["Positive", "Negative"], [num_pos, num_neg], color=["#00A36C", "#FA5F55"], alpha=0.9)
+ax.bar(["Positive", "Negative"], [num_pos, num_neg], color=["#00A36C", "#FA5F55"], alpha=0.8)
 ax.set_xticklabels(["Positive", "Negative"], fontsize=fs)
 ax.set_xlabel("Sentiment", fontsize=fs, fontweight="bold")
 ax.set_ylabel("Number of Responses", fontsize=fs, fontweight="bold")
 ax.set_title(f"Sentiment Analysis (p = {p_value:.4f})", fontsize=fs+2, fontweight="bold")
 plt.xticks(fontsize=xtfs)
 plt.yticks(fontsize=xtfs)
-plt.grid(axis='y', alpha=0.5)
+plt.grid(axis='y', alpha=0.25)
+# Remove axes borders
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+plt.gca().spines['left'].set_visible(False)
+plt.gca().spines['bottom'].set_visible(False)
+# Remove x and y tick lines
+plt.tick_params(axis='both', which='both', length=0)
 plt.show()
