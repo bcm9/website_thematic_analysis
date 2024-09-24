@@ -9,7 +9,7 @@
 
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="./figure1.png" alt="themes" width="350"/>
+  <img src="./Figures/figure1.png" alt="themes" width="350"/>
   <img src="./figure2.png" alt="ratings" width="420"/>
   <img src="./figure4.png" alt="sentiment" width="420"/>
   <img src="./figure3.png" alt="word cloud" width="420"/>
